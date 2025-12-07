@@ -12,7 +12,7 @@ def load_params(params_path: str = "params.yaml") -> dict:
 
 
 def main():
-    # 1. Читаем параметры
+    # Читаем параметры
     params = load_params()
     data_params = params["data"]
 
@@ -21,14 +21,13 @@ def main():
     test_size = data_params["test_size"]
     random_state = data_params["random_state"]
 
-    # 2. Создаём папку для обработанных данных, если её нет
+    # Создаём папку для обработанных данных
     processed_dir.mkdir(parents=True, exist_ok=True)
 
-    # 3. Загружаем сырой датасет
+    # Загружаем  датасет
     df = pd.read_csv(raw_path)
 
-    # Для Iris последний столбец — целевая переменная (species)
-    # Стратифицированный сплит, чтобы классы были представлены одинаково
+   
     train_df, test_df = train_test_split(
         df,
         test_size=test_size,
@@ -36,7 +35,7 @@ def main():
         stratify=df.iloc[:, -1],  # стратификация по таргету
     )
 
-    # 4. Сохраняем train и test в data/processed
+    # Сохраняем train и test в data/processed
     train_path = processed_dir / "train.csv"
     test_path = processed_dir / "test.csv"
 
